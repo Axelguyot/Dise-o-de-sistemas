@@ -1,0 +1,42 @@
+@startuml
+
+class User {
+    - firstname: str
+    - lastname : str
+    - email: str
+    - password: str
+    - role: Role
+    + create_ticket(ticket: TicketManager)
+    + list_tickets(ticketManager: TicketManager)
+    + edit_ticket(ticketManager: TicketManager, ticket_id: int)
+    + delete_ticket(ticketManager: TicketManager, ticket_id: int)
+}
+
+class Role {
+    - role_id: int
+    - role_name: str
+    + get_role_name(): str
+}
+
+interface TicketManager {
+    + create_ticket(): Ticket
+    + list_tickets(): list<Ticket>
+    + edit_ticket(ticket_id: int): void
+    + delete_ticket(ticket_id: int): void
+}
+
+class Ticket {
+    - ticket_id: int
+    - category: str
+    - status: str
+    - received_date: str
+    - completed_date: str
+    - description: str
+    - reply: str
+}
+
+User "1" -- "1" Role : asignado >
+User "1" -- "0..*" Ticket : crea >
+TicketManager <|.. Ticket
+
+@enduml
